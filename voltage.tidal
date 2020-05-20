@@ -1,0 +1,7 @@
+pitch pitch = n pitch # s "pitch"
+scale scale = stepsPerOctave scale
+volt volt = rate volt # s "voltage"
+gate = volt
+clock = rate "[1 0]*8" # s "voltage"
+adsr w x y z = n "0" # attack w # decay x # sustain y # release z # s "adsr"
+x x = channel x
