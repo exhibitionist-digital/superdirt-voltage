@@ -8,10 +8,10 @@ d2 $ gate "0 1 0 0 1 1 1" # x 1
 d3 $ volt "1 0.2 0.5 -0.2" # x 2
 
 -- create adsr
-d4 $ adsr 0.001 0.2 0.25 1 # x 3
+d4 $ trig "1 ~ 1 1" # adsr 0.001 0.2 0.25 1 # x 3
 
 -- patternise adsr
-d5 $ adsr "<0.05 0.9>" "<0 0.4>" 1 1 # x 4
+d5 $ trig "1 ~ 1 1" # adsr (range 0.1 1 sine) "<0 0.4>" 1 1 # x 4
 
 -- clock cv output
 d6 $ clock # x 5

@@ -9,7 +9,7 @@ A small set of SuperDirt synths and Tidal helpers to control modular synths. No 
 d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0
 ```
 
-`pitch` allows a pattern of note values. `scale` sets the amount of notes per octave. The pitch and scale values will be converted to `1v/octave`. Both `pitch` and `scale` can be paternised for some microtonal madness...
+`pitch` allows a pattern of note values. `scale` sets the amount of notes per octave. The pitch and scale values will be converted to `1v/octave`. Both `pitch` and `scale` can be patternised for some microtonal madness...
 
 ### Gate
 
@@ -33,19 +33,17 @@ d3 $ volt "1 0.2 0.5 -0.2" # x 2
 
 ```
 -- create adsr
-d4 $ adsr 0.001 0.2 0.25 1 # x 3
+d4 $ trig "1 ~ 1 1" # adsr 0.001 0.2 0.25 1 # x 3
 ```
-
-![envelope](https://www.dropbox.com/s/rmsxurs03brmsug/envelope.png?raw=1)
 
 ```
 -- patternise adsr
-d5 $ adsr "<0.05 0.9>" "<0 0.4>" 1 1 # x 4
+d5 $ trig "1 ~ 1 1" # adsr (range 0.1 1 sine) "<0 0.4>" 1 1 # x 4
 ```
 
-![patternised envelopes](https://www.dropbox.com/s/qd6kxn22mexpyhq/pattterned-envelopes.png?raw=1)
+`trig` will create a trigger sequence, `adsr` will generate a new envelope for each trigger. Both of these can be patternised.
 
-`adsr` will generate a new envelope per cycle.
+In the second example, the attack time would grow for each triggered envelope over course of the cycle.
 
 ### Clock
 
