@@ -31,6 +31,8 @@ d3 $ volt "1 0.2 0.5 -0.2" # x 2
 
 ### ADSR
 
+![patterned envelopes](https://www.dropbox.com/s/qd6kxn22mexpyhq/patterned-envelopes.png?raw=1)
+
 ```
 -- create adsr
 d4 $ trig "1 ~ 1 1" # adsr 0.001 0.2 0.25 1 # x 3
