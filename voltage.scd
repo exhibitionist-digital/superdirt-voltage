@@ -6,7 +6,6 @@
       n = (n + (n / stepsPerOctave) * (1 / (stepsPerOctave + 1)) / 10);
       slew = (portamento * accelerate);
       slew = (slew + (slew / stepsPerOctave) * (1 / (stepsPerOctave + 1)) / 10);
-      // slew = (slew * accelerate) * accelerate;
       env = Env ([n, n + slew], [delta / rate]);
       phase = Line.ar (begin, end, delta / rate);
       OffsetOut.ar (channel, IEnvGen.ar (env, phase));
