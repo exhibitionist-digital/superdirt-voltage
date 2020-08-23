@@ -75,3 +75,9 @@ Add the `voltage.scd` synths to your active SuperDirt synth definitions.
 Evaluate the `voltage.tidal` definitions after starting Tidal. These can also be added to your Tidal startup file.
 
 In the above examples, `x` maps to a channel on your audio card. If you have an 8 output audio card, the `x` will likely be 0-7. If you are using an aggregate device, please refer to your Audio settings.
+
+---
+
+### Feedback and/or additions?
+
+If you are actually using this, please join the community here and let me know: https://club.tidalcycles.org/t/using-tidal-to-control-modular-synths-with-cv/863
