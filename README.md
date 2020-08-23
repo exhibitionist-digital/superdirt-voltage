@@ -9,12 +9,20 @@ A small set of SuperDirt synths and Tidal helpers to control modular synths. No 
 d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0
 ```
 
-`pitch` allows a pattern of note values. `scale` sets the amount of notes per octave. The pitch and scale values will be converted to `1v/octave`. Both `pitch` and `scale` can be patternised for some microtonal madness...
+`pitch` allows a pattern of note values. `scale` sets the amount of notes per octave. The pitch and scale values will be converted to `1v/octave`. Both `pitch` and `scale` can be sequenced for some microtonal madness...
+
+__WIP__: An experimental `slew` control is in the works...
+
+```
+d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0 # slew 3 0.5 1
+```
+
+`slew` accepts a strengh (in semitones), a rate (in step length), and a multiplyer (+1/-1) for slewing up or down.
 
 ### Gate
 
 ```
--- patternise gate inputs
+-- sequence gate inputs
 d2 $ gate "0 1 0 0 1 1 1" # x 1
 ```
 
@@ -27,7 +35,7 @@ d2 $ gate "0 1 0 0 1 1 1" # x 1
 d3 $ volt "1 0.2 0.5 -0.2" # x 2
 ```
 
-`volt` will allow you to patternise voltages however you like.
+`volt` will allow you to sequence voltages however you like.
 
 ### ADSR
 
@@ -43,7 +51,7 @@ d4 $ trig "1 ~ 1 1" # adsr 0.001 0.2 0.25 1 # x 3
 d5 $ trig "1 ~ 1 1" # adsr (range 0.1 1 sine) "<0 0.4>" 1 1 # x 4
 ```
 
-`trig` will create a trigger sequence, `adsr` will generate a new envelope for each trigger. Both of these can be patternised.
+`trig` will create a trigger sequence, `adsr` will generate a new envelope for each trigger. Both of these can be sequenced.
 
 In the second example, the attack time would grow for each triggered envelope over course of the cycle.
 
