@@ -14,6 +14,7 @@ d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0
 `glide` accepts a strengh (in semitones, relative to scale), a rate (in step length).
 
 ```
+-- glide to pitch
 d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0 # glide 12 0.5
 ```
 
@@ -43,7 +44,7 @@ d3 $ volt "1 0.2 0.5 -0.2" # x 2
 
 ```
 -- create ar
-d4 $ trig "1 ~ 1 1" # ar 0 0.5 1 # x 3
+d4 $ trig "1 ~ 1 1" # ar 0 0.5 # x 3
 ```
 
 ```
@@ -51,7 +52,7 @@ d4 $ trig "1 ~ 1 1" # ar 0 0.5 1 # x 3
 d5 $ trig "1 ~ 1 1" # ar (range 0.1 1 sine) "<0 0.4>" # x 4
 ```
 
-`trig` will create a trigger sequence, `adsr` will generate a new envelope for each trigger. Both of these can be sequenced.
+`trig` will create a trigger sequence, `ar` will generate a new envelope for each trigger. Both of these can be sequenced.
 
 In the second example, the attack time would grow for each triggered envelope over course of the cycle.
 
