@@ -38,9 +38,7 @@ d3 $ volt "1 0.2 0.5 -0.2" # x 2
 
 `volt` will allow you to sequence voltages however you like.
 
-### AR
-
-![patterned envelopes](https://www.dropbox.com/s/qd6kxn22mexpyhq/patterned-envelopes.png?raw=1)
+### AR (Attack + Release)
 
 ```
 -- create ar
