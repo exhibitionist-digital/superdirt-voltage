@@ -10,14 +10,13 @@ d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0
 ```
 
 `pitch` allows a pattern of note values. `scale` sets the amount of notes per octave. The pitch and scale values will be converted to `1v/octave`. Both `pitch` and `scale` can be sequenced for some microtonal madness...
-
-__WIP__: An experimental `slew` control is in the works...
+`glide` accepts a strengh (in semitones, relative to scale), a rate (in step length).
 
 ```
-d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0 # slew 3 0.5 1
+d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0 # glide 12 0.5
 ```
 
-`slew` accepts a strengh (in semitones), a rate (in step length), and a multiplyer (+1/-1) for slewing up or down.
+
 
 ### Gate
 
@@ -37,18 +36,18 @@ d3 $ volt "1 0.2 0.5 -0.2" # x 2
 
 `volt` will allow you to sequence voltages however you like.
 
-### ADSR
+### AR
 
 ![patterned envelopes](https://www.dropbox.com/s/qd6kxn22mexpyhq/patterned-envelopes.png?raw=1)
 
 ```
--- create adsr
-d4 $ trig "1 ~ 1 1" # adsr 0.001 0.2 0.25 1 # x 3
+-- create ar
+d4 $ trig "1 ~ 1 1" # ar 0 0.5 1 # x 3
 ```
 
 ```
 -- patternise adsr
-d5 $ trig "1 ~ 1 1" # adsr (range 0.1 1 sine) "<0 0.4>" 1 1 # x 4
+d5 $ trig "1 ~ 1 1" # ar (range 0.1 1 sine) "<0 0.4>" # x 4
 ```
 
 `trig` will create a trigger sequence, `adsr` will generate a new envelope for each trigger. Both of these can be sequenced.
