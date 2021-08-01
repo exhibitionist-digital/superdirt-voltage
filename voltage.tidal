@@ -1,5 +1,5 @@
 pitch pitch = n pitch # s "pitch"
-scale scale = stepsPerOctave scale
+octave octave = stepsPerOctave octave
 volt volt = n volt # s "voltage"
 gate gate = n gate # s "gate"
 clock = rate "[1 0]*2" # s "voltage"
