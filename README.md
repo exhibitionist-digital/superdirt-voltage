@@ -2,14 +2,14 @@
 
 A small set of SuperDirt synths and Tidal helpers to control modular synths. No MIDI required!
 
-### Pitch, with scale quantisation
+### Pitch, with octave quantisation
 
 ```
 -- change notes per octave on each cycle
-d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0
+d1 $ pitch "0 10 8 1" # octave "<12 31 8>" # x 0
 ```
 
-`pitch` allows a pattern of note values. `scale` sets the amount of notes per octave. The pitch and scale values will be converted to `1v/octave`. Both `pitch` and `scale` can be sequenced for some microtonal madness...
+`pitch` allows a pattern of note values. `scale` sets the amount of notes per octave. The pitch and scale values will be converted to `1v/octave`. Both `pitch` and `octave` can be sequenced for some microtonal madness...
 
 `glide` accepts a strengh (in semitones, relative to scale), a rate (in step length).
 
