@@ -1,3 +1,5 @@
+<img src="https://cdn.sanity.io/images/os5aqg3v/production/5bf2e61c0ab7f692f034c72a8d06cb25d898b33a-1800x1225.png?auto=format" width="500" />
+
 # SuperDirt Voltage
 
 A small set of SuperDirt synths and Tidal helpers to control modular synths. No MIDI required!
