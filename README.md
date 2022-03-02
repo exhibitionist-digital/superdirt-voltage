@@ -1,4 +1,4 @@
-<img src="https://cdn.sanity.io/images/os5aqg3v/production/5bf2e61c0ab7f692f034c72a8d06cb25d898b33a-1800x1225.png?auto=format" width="500" />
+<img src="https://cdn.sanity.io/images/os5aqg3v/production/1df428507bbab5a032dcb43701e80b4e9aeb29f5-2048x1475.jpg?auto=format" width="500" />
 
 # SuperDirt Voltage
 
