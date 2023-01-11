@@ -4,11 +4,18 @@
 
 A small set of SuperDirt synths and Tidal helpers to control modular synths. No MIDI required!
 
+**2023 updates:**
+
+- Added `saw`, `lfo` triggered LFOs
+- `amp` now controls the scale of `gate`, `voltage`, `saw`, `ar`, and `lfo`
+
+---
+
 ### Pitch, with octave quantisation
 
 ```
 -- change notes per octave on each cycle
-d1 $ pitch "0 10 8 1" # octave "<12 31 8>" # x 0
+d1 $ pitch "0 10 8 1" # octave "<12 31 8>" # x 1
 ```
 
 `pitch` allows a pattern of note values. `octave` sets the amount of notes per octave. The pitch and scale values will be converted to `1v/octave`. Both `pitch` and `octave` can be sequenced for some microtonal madness...
@@ -17,16 +24,14 @@ d1 $ pitch "0 10 8 1" # octave "<12 31 8>" # x 0
 
 ```
 -- glide to pitch
-d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 0 # glide 12 0.5
+d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 1 # glide 12 0.5
 ```
-
-
 
 ### Gate
 
 ```
 -- sequence gate inputs
-d2 $ gate "0 1 0 0 1 1 1" # x 1
+d2 $ gate "0 1 0 0 1 1 1" # x 2
 ```
 
 `gate` will take a 0/1 pattern and return +5v signals for the `1` values. Use `-1` if you need a -5v.
@@ -35,35 +40,64 @@ d2 $ gate "0 1 0 0 1 1 1" # x 1
 
 ```
 -- create stepped automation
-d3 $ volt "1 0.2 0.5 -0.2" # x 2
+d3 $ volt "1 0.2 0.5 -0.2" # x 3
 ```
 
 `volt` will allow you to sequence voltages however you like.
 
-### AR (Attack + Release)
+### ADSR/AR
+
+```
+--- adsr
+d4 $ adsr 0 0.2 1 0.2 # x 4
+```
+
+There is also just an `ar` helper too, which has a default D and S value.
 
 ```
 -- create ar
-d4 $ trig "1 ~ 1 1" # ar 0 0.5 # x 3
+d5 $ struct "t f t t" # ar 0 0.5 # x 5
 ```
 
 ```
--- patternise adsr
-d5 $ trig "1 ~ 1 1" # ar (range 0.1 1 sine) "<0 0.4>" # x 4
+-- patternise ar
+d5 $ struct "t f t t" # ar (range 0.1 1 sine) "<0 0.4>" # x 5
 ```
 
-`trig` will create a trigger sequence, `ar` will generate a new envelope for each trigger. Both of these can be sequenced.
+In the above example, the attack time would grow for each triggered envelope over course of the cycle.
 
-In the second example, the attack time would grow for each triggered envelope over course of the cycle.
+### Sine LFO
+
+This will create an sine waveform, the sine will restart with each cycle, which gives a neat synced/trigger effect for modulations.
+
+```
+d6 $ lfo 0.5 # x 6
+```
+
+### Saw LFO
+
+This will create a sawtooth waveform, the sawtooth will restart with each cycle, which gives a neat synced/trigger effect for modulations.
+
+```
+d6 $ saw 0.5 # x 6
+```
 
 ### Clock
 
 ```
 -- clock cv output
-d6 $ clock # x 5
+d6 $ clock # x 6
 ```
 
 `clock` will output a clock cv, which matches the bpm of your tidal project. You can `slow` / `fast` this as well.
+
+### Amp
+
+Using the `amp` modifier in Tidal Cycles will scale the output of `gate`, `voltage`, `saw`, `ar`, and `lfo`. Awesome for creating more suble modulations.
+
+```
+d6 $ saw 0.5 # x 6 # amp 0.3
+```
 
 ---
 
