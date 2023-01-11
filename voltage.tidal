@@ -1,10 +1,11 @@
 pitch pitch = n pitch # s "pitch"
 octave octave = stepsPerOctave octave
-volt volt = n volt # s "voltage"
-gate gate = n gate # s "gate"
+volt volt = n volt # s "voltage" 
+gate gate = n gate # s "gate" # legato 0.05
 clock = rate "[1 0]*2" # s "voltage"
 ar w x = attack w # decay x # s "ar"
-trig trig = n trig
-x x = channel x
+adsr w x y z = attack w #decay x # sustain y # release z # s "ar"
+saw x = rate x # s "saw"
+lfo x = rate x # s "lfo"
+x x = channel (x - 1)
 glide p r = portamento p # rate r
-o o p = orbit o # pan p
