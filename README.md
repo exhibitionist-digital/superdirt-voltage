@@ -13,23 +13,27 @@ MIDI required!
 
 ---
 
-### nDef
+### Ndef
 
-Defining `nDef` synths provide a constant signal between cycles and
-instructions. You will need to define a separate `nDef` for each instance you
+Defining `Ndef` synths provide a constant signal between cycles and
+instructions. You will need to define a separate `Ndef` for each instance you
 would like to use.
 
 ```c
+// define a unique name for each Ndef
 Ndef(\cv_np).source = \nPitch;
 Ndef(\cv_np).play(0);
+
+// add to dirt library, give it a name that you will use in tidal
 ~dirt.soundLibrary.addSynth(\cv, (play: {
     var latency = (~latency ? 0);
     var freq = ~freq;
     var channel = ~channel;
     var portamento = ~portamento;
-
-    Ndef(\cv_np).wakeUp; // make sure the Ndef runs
-
+    
+    Ndef(\cv_np).wakeUp;
+    
+    // schedule the cycles, prevents delayed signals
     thisThread.clock.sched(latency - 0.025, {
         Ndef(\cv_np).set(\portamento, portamento);
         Ndef(\cv_np).set(\channel, channel);
@@ -57,7 +61,7 @@ d1 $ n "c3 f2" # s "cv" # channel 1 # portamento 0.5
 ### Simple
 
 The following synths, while easier to use, create a new cv instance each cycle.
-This can result in short gaps/breaks in between cycles. You can use `nDef`'s
+This can result in short gaps/breaks in between cycles. You can use `Ndef`s
 above to remedy this.
 
 ### Pitch, with octave quantisation
