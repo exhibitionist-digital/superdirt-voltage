@@ -48,13 +48,13 @@ After adding or evaluating the above in SuperCollider, you can use them like:
 
 ```haskell
 -- you can select pitch by number
-d1 $ n "20" # s "cv"
+d1 $ n "20" # s "p"
 
 -- or by note name 
-d1 $ n "c3" # s "cv"
+d1 $ n "c3" # s "p"
 
 -- change channel output and/or portamento
-d1 $ n "c3 f2" # s "cv" # channel 1 # portamento 0.5
+d1 $ n "c3 f2" # s "p" # channel 1 # portamento 0.5
 ```
 
 #### Gate
