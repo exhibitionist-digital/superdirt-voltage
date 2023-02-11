@@ -59,7 +59,7 @@ d1 $ n "c3 f2" # s "cv" # channel 1 # portamento 0.5
 
 #### Gate
 
-````c
+```c
 // define a unique name for each Ndef
 Ndef(\cv_ng).source = \nGate;
 Ndef(\cv_ng).play(0);
@@ -208,4 +208,6 @@ device, please refer to your Audio settings.
 
 If you are actually using this, please join the community here and let me know:
 https://club.tidalcycles.org/t/using-tidal-to-control-modular-synths-with-cv/863
-````
+
+```
+```
