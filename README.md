@@ -32,15 +32,14 @@ Ndef(\cv_np).play(0);
     var portamento = ~portamento;
     
     Ndef(\cv_np).wakeUp;
-    
+
     // schedule the cycles, prevents delayed signals
     thisThread.clock.sched(latency - 0.025, {
         Ndef(\cv_np).set(\portamento, portamento);
         Ndef(\cv_np).set(\channel, channel);
         Ndef(\cv_np).set(\freq, freq);
     });
-})
-);
+}));
 ```
 
 After adding or evaluating the above in SuperCollider, you can use them like:
