@@ -13,7 +13,7 @@ MIDI required!
 
 ---
 
-## nDef
+### nDef
 
 Defining `nDef` synths provide a constant signal between cycles and
 instructions. You will need to define a separate `nDef` for each instance you
@@ -54,7 +54,7 @@ d1 $ n "c3 f2" # s "cv" # channel 1 # portamento 0.5
 
 ---
 
-## Simple
+### Simple
 
 The following synths, while easier to use, create a new cv instance each cycle.
 This can result in short gaps/breaks in between cycles. You can use `nDef`'s
