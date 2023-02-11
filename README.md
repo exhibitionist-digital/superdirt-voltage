@@ -13,10 +13,11 @@ MIDI required!
 
 ---
 
-### nDefs
+## nDef
 
 Defining `nDef` synths provide a constant signal between cycles and
-instructions.
+instructions. You will need to define a separate `nDef` for each instance you
+would like to use.
 
 ```c
 Ndef(\cv_np).source = \nPitch;
@@ -38,8 +39,7 @@ Ndef(\cv_np).play(0);
 );
 ```
 
-You will need to define a separate `nDef` for each instance you would like to
-use.
+After adding or evaluating the above in SuperCollider, you can use them like:
 
 ```haskell
 -- you can select pitch by number
@@ -53,6 +53,8 @@ d1 $ n "c3 f2" # s "cv" # channel 1 # portamento 0.5
 ```
 
 ---
+
+## Simple
 
 The following synths, while easier to use, create a new cv instance each cycle.
 This can result in short gaps/breaks in between cycles. You can use `nDef`'s
