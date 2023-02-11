@@ -19,13 +19,15 @@ Defining `Ndef` synths provide a constant signal between cycles and
 instructions. You will need to define a separate `Ndef` for each instance you
 would like to use.
 
+#### Pitch
+
 ```c
 // define a unique name for each Ndef
 Ndef(\cv_np).source = \nPitch;
 Ndef(\cv_np).play(0);
 
 // add to dirt library, give it a name that you will use in tidal
-~dirt.soundLibrary.addSynth(\cv, (play: {
+~dirt.soundLibrary.addSynth(\p, (play: {
     var latency = (~latency ? 0);
     var freq = ~freq;
     var channel = ~channel;
@@ -55,6 +57,30 @@ d1 $ n "c3" # s "cv"
 d1 $ n "c3 f2" # s "cv" # channel 1 # portamento 0.5
 ```
 
+#### Gate
+
+````c
+// define a unique name for each Ndef
+Ndef(\cv_ng).source = \nGate;
+Ndef(\cv_ng).play(0);
+
+// add to dirt library, give it a name that you will use in tidal
+~dirt.soundLibrary.addSynth(\g, (play: {
+    var latency = (~latency ? 0);
+    var n = ~n;
+    var channel = ~channel;
+    var portamento = ~portamento;
+    
+    Ndef(\cv_ng).wakeUp;
+
+    // schedule the cycles, prevents delayed signals
+    thisThread.clock.sched(latency - 0.025, {
+        Ndef(\cv_ng).set(\portamento, portamento);
+        Ndef(\cv_ng).set(\channel, channel);
+        Ndef(\cv_ng).set(\n, n);
+    });
+}));
+
 ---
 
 ### Simple
@@ -63,7 +89,7 @@ The following synths, while easier to use, create a new cv instance each cycle.
 This can result in short gaps/breaks in between cycles. You can use `Ndef`s
 above to remedy this.
 
-### Pitch, with octave quantisation
+#### Pitch, with octave quantisation
 
 ```haskell
 -- change notes per octave on each cycle
@@ -82,7 +108,7 @@ length).
 d1 $ pitch "0 10 8 1" # scale "<12 31 8>" # x 1 # glide 12 0.5
 ```
 
-### Gate
+#### Gate
 
 ```haskell
 -- sequence gate inputs
@@ -92,7 +118,7 @@ d2 $ gate "0 1 0 0 1 1 1" # x 2
 `gate` will take a 0/1 pattern and return +5v signals for the `1` values. Use
 `-1` if you need a -5v.
 
-### Voltage automation
+#### Voltage automation
 
 ```haskell
 -- create stepped automation
@@ -101,7 +127,7 @@ d3 $ volt "1 0.2 0.5 -0.2" # x 3
 
 `volt` will allow you to sequence voltages however you like.
 
-### ADSR/AR
+#### ADSR/AR
 
 ```haskell
 --- adsr
@@ -123,7 +149,7 @@ d5 $ struct "t f t t" # ar (range 0.1 1 sine) "<0 0.4>" # x 5
 In the above example, the attack time would grow for each triggered envelope
 over course of the cycle.
 
-### Sine LFO
+#### Sine LFO
 
 This will create an sine waveform, the sine will restart with each cycle, which
 gives a neat synced/trigger effect for modulations.
@@ -132,7 +158,7 @@ gives a neat synced/trigger effect for modulations.
 d6 $ lfo 0.5 # x 6
 ```
 
-### Saw LFO
+#### Saw LFO
 
 This will create a sawtooth waveform, the sawtooth will restart with each cycle,
 which gives a neat synced/trigger effect for modulations.
@@ -141,7 +167,7 @@ which gives a neat synced/trigger effect for modulations.
 d6 $ saw 0.5 # x 6
 ```
 
-### Clock
+#### Clock
 
 ```haskell
 -- clock cv output
@@ -151,7 +177,7 @@ d6 $ clock # x 6
 `clock` will output a clock cv, which matches the bpm of your tidal project. You
 can `slow` / `fast` this as well.
 
-### Amp
+#### Amp
 
 Using the `amp` modifier in Tidal Cycles will scale the output of `gate`,
 `voltage`, `saw`, `ar`, and `lfo`. Awesome for creating more suble modulations.
@@ -181,3 +207,4 @@ device, please refer to your Audio settings.
 
 If you are actually using this, please join the community here and let me know:
 https://club.tidalcycles.org/t/using-tidal-to-control-modular-synths-with-cv/863
+````

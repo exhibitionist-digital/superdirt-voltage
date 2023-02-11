@@ -109,4 +109,15 @@
     }).add
   );
 
+   (
+    SynthDef(\nGate, {
+      | out,
+      channel = 0, 
+      n, 
+      portamento = 0 |
+      var sig = LinLin.ar(n, -1, 9, 0, 1);
+      OffsetOut.ar(channel, [sig]);
+    }).add
+  );
+
 )
