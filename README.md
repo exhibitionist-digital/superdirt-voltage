@@ -208,6 +208,3 @@ device, please refer to your Audio settings.
 
 If you are actually using this, please join the community here and let me know:
 https://club.tidalcycles.org/t/using-tidal-to-control-modular-synths-with-cv/863
-
-```
-```
