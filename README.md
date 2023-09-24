@@ -13,82 +13,17 @@ MIDI required!
 
 ---
 
-### Ndef
-
-Defining `Ndef` synths provide a constant signal between cycles and
-instructions. You will need to define a separate `Ndef` for each instance you
-would like to use.
-
-#### Pitch
-
-```c
-// define a unique name for each Ndef
-Ndef(\cv_np).source = \nPitch;
-Ndef(\cv_np).play(0);
-
-// add to dirt library, give it a name that you will use in tidal
-~dirt.soundLibrary.addSynth(\p, (play: {
-    var latency = (~latency ? 0);
-    var freq = ~freq;
-    var channel = ~channel;
-    var portamento = ~portamento;
-    
-    Ndef(\cv_np).wakeUp;
-
-    // schedule the cycles, prevents delayed signals
-    thisThread.clock.sched(latency - 0.025, {
-        Ndef(\cv_np).set(\portamento, portamento);
-        Ndef(\cv_np).set(\channel, channel);
-        Ndef(\cv_np).set(\freq, freq);
-    });
-}));
-```
-
-After adding or evaluating the above in SuperCollider, you can use them like:
-
-```haskell
--- you can select pitch by number
-d1 $ n "20" # s "p"
-
--- or by note name 
-d1 $ n "c3" # s "p"
-
--- change channel output and/or portamento
-d1 $ n "c3 f2" # s "p" # channel 1 # portamento 0.5
-```
-
-#### Gate
-
-```c
-// define a unique name for each Ndef
-Ndef(\cv_ng).source = \nGate;
-Ndef(\cv_ng).play(0);
-
-// add to dirt library, give it a name that you will use in tidal
-~dirt.soundLibrary.addSynth(\g, (play: {
-    var latency = (~latency ? 0);
-    var n = ~n;
-    var channel = ~channel;
-    var portamento = ~portamento;
-    
-    Ndef(\cv_ng).wakeUp;
-
-    // schedule the cycles, prevents delayed signals
-    thisThread.clock.sched(latency - 0.025, {
-        Ndef(\cv_ng).set(\portamento, portamento);
-        Ndef(\cv_ng).set(\channel, channel);
-        Ndef(\cv_ng).set(\n, n);
-    });
-}));
-```
-
----
-
 ### Simple
 
-The following synths, while easier to use, create a new cv instance each cycle.
+The following synths, while easy to use, create a new CV instance each cycle.
 This can result in short gaps/breaks in between cycles. You can use `Ndef`s
-above to remedy this.
+(below) above to remedy this.
+
+Easy install, 1st step: Put voltage.scd into your
+[SuperDirt/synths](https://github.com/musikinformatik/SuperDirt/tree/develop/synths)
+library.
+
+2nd step: Evaluate `voltage.tidal` (or add to your `bootTidal.hs` config)
 
 #### Pitch, with octave quantisation
 
@@ -189,7 +124,108 @@ d6 $ saw 0.5 # x 6 # amp 0.3
 
 ---
 
-### How to use
+### Expert
+
+If you run into issues with gaps or clicks in the synth defs above, you can
+choose to use nDefs, which allow more consistent CV usage.
+
+These need to be defined in your start up file.
+
+### Ndef
+
+Defining `Ndef` synths provide a constant signal between cycles and
+instructions. You will need to define a separate `Ndef` for each instance you
+would like to use.
+
+#### Pitch
+
+```c
+ (
+    SynthDef(\nPitch, {
+      | out,
+      channel = 0, 
+      freq = 440, 
+      portamento = 0 |
+      var n = Lag.ar(log2(K2A.ar(freq)/440), portamento);
+      var sig = LinLin.ar(n, -1, 9, 0, 1);
+      OffsetOut.ar(channel, [sig]);
+    }).add
+  );
+
+// define a unique name for each Ndef
+Ndef(\cv_np).source = \nPitch;
+Ndef(\cv_np).play(0);
+
+// add to dirt library, give it a name that you will use in tidal
+~dirt.soundLibrary.addSynth(\p, (play: {
+    var latency = (~latency ? 0);
+    var freq = ~freq;
+    var channel = ~channel;
+    var portamento = ~portamento;
+    
+    Ndef(\cv_np).wakeUp;
+
+    // schedule the cycles, prevents delayed signals
+    thisThread.clock.sched(latency - 0.025, {
+        Ndef(\cv_np).set(\portamento, portamento);
+        Ndef(\cv_np).set(\channel, channel);
+        Ndef(\cv_np).set(\freq, freq);
+    });
+}));
+```
+
+After adding or evaluating the above in SuperCollider, you can use them like:
+
+```haskell
+-- you can select pitch by number
+d1 $ n "20" # s "p"
+
+-- or by note name 
+d1 $ n "c3" # s "p"
+
+-- change channel output and/or portamento
+d1 $ n "c3 f2" # s "p" # channel 1 # portamento 0.5
+```
+
+#### Gate
+
+```c
+  (
+    SynthDef(\nGate, {
+      | out,
+      channel = 0, 
+      n, 
+      portamento = 0 |
+      var sig = LinLin.ar(n, -1, 9, 0, 1);
+      OffsetOut.ar(channel, [sig]);
+    }).add
+  );
+
+// define a unique name for each Ndef
+Ndef(\cv_ng).source = \nGate;
+Ndef(\cv_ng).play(0);
+
+// add to dirt library, give it a name that you will use in tidal
+~dirt.soundLibrary.addSynth(\g, (play: {
+    var latency = (~latency ? 0);
+    var n = ~n;
+    var channel = ~channel;
+    var portamento = ~portamento;
+    
+    Ndef(\cv_ng).wakeUp;
+
+    // schedule the cycles, prevents delayed signals
+    thisThread.clock.sched(latency - 0.025, {
+        Ndef(\cv_ng).set(\portamento, portamento);
+        Ndef(\cv_ng).set(\channel, channel);
+        Ndef(\cv_ng).set(\n, n);
+    });
+}));
+```
+
+---
+
+### Fine print
 
 **These require a DC-coupled sound card.**
 

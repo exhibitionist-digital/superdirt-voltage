@@ -97,27 +97,4 @@
     }).add
   );
 
-  (
-    SynthDef(\nPitch, {
-      | out,
-      channel = 0, 
-      freq = 440, 
-      portamento = 0 |
-      var n = Lag.ar(log2(K2A.ar(freq)/440), portamento);
-      var sig = LinLin.ar(n, -1, 9, 0, 1);
-      OffsetOut.ar(channel, [sig]);
-    }).add
-  );
-
-   (
-    SynthDef(\nGate, {
-      | out,
-      channel = 0, 
-      n, 
-      portamento = 0 |
-      var sig = LinLin.ar(n, -1, 9, 0, 1);
-      OffsetOut.ar(channel, [sig]);
-    }).add
-  );
-
 )
