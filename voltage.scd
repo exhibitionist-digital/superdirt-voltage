@@ -3,25 +3,12 @@
     SynthDef(\just, {
       |
       out,
-      n,
-      channel,
-      stepsPerOctave = 12,
-      rate = 1,
-      delta,
-      begin,
-      end,
-      ratio,
-      portamento = 0 |
-      var slew, env, phase;
-      n = n + (stepsPerOctave / 12);
-      n = (n + (n / stepsPerOctave) * (1 / (stepsPerOctave + 1)) / 10);
-      n = n * ratio;
-      slew = (portamento);
-      slew = (slew + (slew / stepsPerOctave) * (1 / (stepsPerOctave + 1)) / 10);
-      slew = slew * ratio;
-      env = Env([n, n + slew], [delta / rate]);
-      phase = Line.ar(begin, end, delta / rate);
-      OffsetOut.ar(channel, IEnvGen.ar(env, phase));
+      freq,
+      harmonic = 1,
+      channel |
+      var vco;
+      vco = DC.ar(freq * harmonic);
+      OffsetOut.ar(channel, vco);
     }).add
   );
 
